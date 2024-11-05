@@ -39,6 +39,8 @@ class AlienInvasion:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
+                if event.key == pygame.K_RIGHT:
+                    self.ship.rect.x += 1
     
     def _update_screen(self):
         # Redraw bg_color
