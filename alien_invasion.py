@@ -27,14 +27,7 @@ class AlienInvasion:
     def run_game(self):
         """Start main game loop"""
         while True:
-            # Watch for HID events
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        sys.exit()
-
+            self._check_events()
             # Redraw bg_color
             self.screen.fill(self.settings.bg_color)
             
@@ -43,6 +36,15 @@ class AlienInvasion:
             # Make the most recently drawn screen visible    
             pygame.display.flip()
             self.clock.tick(self.settings.fps)
+    
+    def _check_events(self):
+        """Respond to HID events"""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    sys.exit()
     
 if __name__ == '__main__':
     # Make a game instance and run the game
