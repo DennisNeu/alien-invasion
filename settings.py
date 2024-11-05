@@ -8,4 +8,4 @@ class Settings:
         self.bg_color = (230, 230, 230)
 
         # Game settings
-        fps = 60
+        self.fps = 60
