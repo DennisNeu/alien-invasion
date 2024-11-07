@@ -16,10 +16,14 @@ class Ship:
         # Place at bottom center of screen
         self.rect.midbottom = self.screen_rect.midbottom
 
+        # Store a float of ship's exact position
+        self.x = float(self.rect.x)
+
+        # Movement flags
         self.moving_right = False
         self.moving_left = False
 
-        self.settings = Settings()
+        self.settings = ai_game.settings
 
     def blitme(self):
         """Draw the ship at current location"""
@@ -29,8 +33,10 @@ class Ship:
         """Update the ship's position based on the movement flag"""
 
         if self.moving_right:
-            self.rect.x += self.settings.ship_speed
+            self.x += self.settings.ship_speed
         
         if self.moving_left:
-            self.rect.x -= self.settings.ship_speed
+            self.x -= self.settings.ship_speed
 
+        # Update rect object from self.x
+        self.rect.x = self.x
