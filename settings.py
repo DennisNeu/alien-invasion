@@ -9,3 +9,6 @@ class Settings:
 
         # Game settings
         self.fps = 60
+
+        # Ship settings
+        self.movement_speed = 3

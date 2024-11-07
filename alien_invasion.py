@@ -28,6 +28,7 @@ class AlienInvasion:
         """Start main game loop"""
         while True:
             self._check_events()
+            self.ship.update()
             self._update_screen()
             self.clock.tick(self.settings.fps)
 
@@ -40,7 +41,14 @@ class AlienInvasion:
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
                 if event.key == pygame.K_RIGHT:
-                    self.ship.rect.x += 1
+                    self.ship.moving_right = True
+                if event.key == pygame.K_LEFT:
+                    self.ship.moving_left = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+                if event.key == pygame.K_LEFT:
+                    self.ship.moving_left = False
     
     def _update_screen(self):
         # Redraw bg_color

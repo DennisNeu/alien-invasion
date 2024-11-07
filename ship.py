@@ -1,4 +1,5 @@
 import pygame
+from settings import Settings
 
 class Ship:
     """A calss to manage the space ship"""
@@ -15,7 +16,21 @@ class Ship:
         # Place at bottom center of screen
         self.rect.midbottom = self.screen_rect.midbottom
 
+        self.moving_right = False
+        self.moving_left = False
+
+        self.settings = Settings()
+
     def blitme(self):
         """Draw the ship at current location"""
         self.screen.blit(self.image, self.rect)
+
+    def update(self):
+        """Update the ship's position based on the movement flag"""
+
+        if self.moving_right:
+            self.rect.x += self.settings.movement_speed
+        
+        if self.moving_left:
+            self.rect.x -= self.settings.movement_speed
 
