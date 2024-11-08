@@ -4,6 +4,7 @@ from settings import Settings
 from ship import Ship
 from bullet import Bullet
 
+
 class AlienInvasion:
     """Overall class to manage game assets and behaviour"""
 
@@ -16,11 +17,13 @@ class AlienInvasion:
 
         # Clock to control framerate
         self.clock = pygame.time.Clock()
-        
+
         # Screen/Surface
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height)
+        )
         pygame.display.set_caption("Alien invasion")
-        
+
         self.bg_color = (230, 230, 230)
 
         self.ship = Ship(self)
@@ -59,7 +62,7 @@ class AlienInvasion:
         if event.key == pygame.K_LEFT:
             self.ship.moving_left = True
         if event.key == pygame.K_SPACE:
-            self._fire_bullet()       
+            self._fire_bullet()
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -70,13 +73,13 @@ class AlienInvasion:
     def _update_screen(self):
         # Redraw bg_color
         self.screen.fill(self.settings.bg_color)
-        
+
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
-            
+
         self.ship.blitme()
 
-        # Make the most recently drawn screen visible    
+        # Make the most recently drawn screen visible
         pygame.display.flip()
 
     def _fire_bullet(self):
@@ -85,7 +88,16 @@ class AlienInvasion:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
-if __name__ == '__main__':
+    def _update_bullets(self):
+        self.bullets.update()
+
+        # Delete bullets that have left screen area
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+
+
+if __name__ == "__main__":
     # Make a game instance and run the game
     ai = AlienInvasion()
     ai.run_game()
